@@ -8,7 +8,7 @@
 .NOTES
     File Name: Get-SharesAndACLs.ps1
     Author: DPO
-    Version: 1.0
+    Version: 1.1
     Date Created: 13/09/2023
     Date Modified: 13/09/2023
 
@@ -70,9 +70,25 @@ $accessList = @()
 
 foreach ($share in $shares) {
     Write-Host ('{0} has share {1} at {2}' -f $share.PSComputerName, $share.Name, $share.Path)
-    $session = New-PSSession -ComputerName $share.PSComputerName
-    $accessList += Invoke-Command -Session $session -ScriptBlock { Get-Acl -Path $args[0] } -ArgumentList $share.Path
-    Remove-PSSession -Session $session
+
+    # If the local computer name does name match the PSComputerName, start a remote session.
+    if ($env:COMPUTERNAME -ne $share.PSComputerName) {
+        $session = New-PSSession -ComputerName $share.PSComputerName
+        $accessList += Invoke-Command -Session $session -ScriptBlock { Get-Acl -Path $args[0] } -ArgumentList $share.Path
+        Remove-PSSession -Session $session
+    }
+    else {
+        # If the local computer name matches the PSComputerName, run the command locally.
+        $access = Get-Acl -Path $share.Path
+        # Add the results to the accessList array, that includes the local computer name.
+        $accessList += [PSCustomObject]@{
+            'LocalComputerName' = $env:COMPUTERNAME
+            'PSComputerName' = $share.PSComputerName
+            'Path' = $share.Path
+            'Owner' = $access.Owner
+            'AccessToString' = $access.AccessToString
+        }
+    }
 }
 
 # Use the accessList to create a CSV file that contains the ACL for each share, with the assigned accesses in plain English
