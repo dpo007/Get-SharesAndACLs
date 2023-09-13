@@ -63,7 +63,7 @@ foreach ($computerName in $computerNames) {
     }
 }
 
-# Start a remote session to the first PSComputer listed in teh CSV and return the ACL for the folder provided in the Path
+# Start a remote session to the first PSComputer listed in the CSV and return the ACL for the folder provided in the Path
 $shares = Import-Csv -Path $shareListFilePath
 $aclListFilePath = Join-Path -Path $CSVOutputFolder -ChildPath 'ShareACLs.csv'
 $accessList = @()
