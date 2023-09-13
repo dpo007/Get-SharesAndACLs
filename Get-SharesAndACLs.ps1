@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-    This script retrieves a list of all Windows computers in the Active Directory domain and checks if they are online. For each online computer, it retrieves a list of all shares and exports the results to a CSV file.
+    This PowerShell script retrieves a list of all Windows computers in the Active Directory domain and checks if they are online. For each online computer, it retrieves a list of all shares and exports the results to a CSV file. It then retrieves the ACL for each share and exports the results to another CSV file.
 
 .PARAMETER CSVOutputFolder
     Specifies the folder where the CSV file should be saved. The default value is 'c:\temp'.
@@ -11,9 +11,6 @@
     Version: 1.0
     Date Created: 13/09/2023
     Date Modified: 13/09/2023
-
-.DESCRIPTION
-    This PowerShell script retrieves a list of all Windows computers in the Active Directory domain and checks if they are online. For each online computer, it retrieves a list of all shares and exports the results to a CSV file.
 
 .EXAMPLE
     PS C:\> .\Get-SharesAndACLs.ps1 -CSVOutputFolder 'C:\ShareLists'

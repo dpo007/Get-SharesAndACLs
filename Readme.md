@@ -1,7 +1,7 @@
 
 # Get-SharesAndACLs.ps1
 
-This PowerShell script retrieves a list of all Windows computers in the Active Directory domain and checks if they are online. For each online computer, it retrieves a list of all shares, and who has what access to them, and exports the results to CSV files.
+This PowerShell script retrieves a list of all Windows computers in the Active Directory domain and checks if they are online. For each online computer, it retrieves a list of all shares and exports the results to a CSV file. It then retrieves the ACL for each share and exports the results to another CSV file.
 
 ## Usage
 
