@@ -83,10 +83,10 @@ foreach ($share in $shares) {
         # Add the results to the accessList array, that includes the local computer name.
         $accessList += [PSCustomObject]@{
             'LocalComputerName' = $env:COMPUTERNAME
-            'PSComputerName' = $share.PSComputerName
-            'Path' = $share.Path
-            'Owner' = $access.Owner
-            'AccessToString' = $access.AccessToString
+            'PSComputerName'    = $share.PSComputerName
+            'Path'              = $share.Path
+            'Owner'             = $access.Owner
+            'AccessToString'    = $access.AccessToString
         }
     }
 }
